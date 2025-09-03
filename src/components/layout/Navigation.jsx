@@ -12,14 +12,16 @@ export default function Navigation() {
 
   const isActive = (path) => location.pathname === path;
 
-  const navItems = currentUser ? [
-    { path: '/dashboard', label: 'Dashboard' },
-    { path: '/resume', label: 'Resume Builder' },
-    { path: '/cover-letter', label: 'Cover Letter' }
-  ] : [
-    { path: '/login', label: 'Login' },
-    { path: '/signup', label: 'Sign Up' }
-  ];
+  const navItems = currentUser
+    ? [
+        { path: '/dashboard', label: 'Dashboard' },
+        { path: '/resume', label: 'Resume Builder' },
+        { path: '/cover-letter', label: 'Cover Letter' },
+      ]
+    : [
+        { path: '/login', label: 'Login' },
+        { path: '/signup', label: 'Sign Up' },
+      ];
 
   const handleLogout = async () => {
     try {
@@ -31,18 +33,24 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-gray-900 border-b border-gray-800">
+    <nav className="bg-black border-b border-gray-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
+          {/* Brand */}
           <div className="flex">
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="flex-shrink-0 flex items-center"
             >
-              <Link to="/" className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              <Link
+                to="/"
+                className="text-xl font-bold text-white hover:shadow-[0_0_15px_white] transition-all duration-300"
+              >
                 Resume Builder
               </Link>
             </motion.div>
+
+            {/* Desktop Menu */}
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               {navItems.map((item) => (
                 <motion.div
@@ -54,9 +62,9 @@ export default function Navigation() {
                     to={item.path}
                     className={`${
                       isActive(item.path)
-                        ? 'border-indigo-500 text-white'
-                        : 'border-transparent text-gray-300 hover:text-white'
-                    } inline-flex items-center px-3 py-2 text-sm font-medium border-b-2 transition-colors duration-200`}
+                        ? 'border-white text-white'
+                        : 'border-transparent text-gray-400 hover:text-white'
+                    } inline-flex items-center px-3 py-2 text-sm font-medium border-b-2 transition-all duration-200`}
                   >
                     {item.label}
                   </Link>
@@ -65,25 +73,26 @@ export default function Navigation() {
             </div>
           </div>
 
+          {/* Logout (Desktop) */}
           {currentUser && (
             <div className="hidden sm:ml-6 sm:flex sm:items-center">
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={handleLogout}
-                className="ml-8 px-4 py-2 border border-transparent rounded-md text-sm font-medium text-white bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                className="ml-8 px-4 py-2 border border-white rounded-md text-sm font-medium text-white bg-black hover:bg-white hover:text-black hover:shadow-[0_0_15px_white] transition-all duration-300"
               >
                 Logout
               </motion.button>
             </div>
           )}
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu Button */}
           <div className="flex items-center sm:hidden">
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+              className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
             >
               {isMobileMenuOpen ? (
                 <FaTimes className="h-6 w-6" />
@@ -95,27 +104,27 @@ export default function Navigation() {
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu */}
       <motion.div
         initial={false}
-        animate={{ height: isMobileMenuOpen ? 'auto' : 0, opacity: isMobileMenuOpen ? 1 : 0 }}
+        animate={{
+          height: isMobileMenuOpen ? 'auto' : 0,
+          opacity: isMobileMenuOpen ? 1 : 0,
+        }}
         transition={{ duration: 0.2 }}
-        className={`sm:hidden overflow-hidden bg-gray-800`}
+        className={`sm:hidden overflow-hidden bg-black`}
       >
         <div className="px-2 pt-2 pb-3 space-y-1">
           {navItems.map((item) => (
-            <motion.div
-              key={item.path}
-              whileTap={{ scale: 0.98 }}
-            >
+            <motion.div key={item.path} whileTap={{ scale: 0.98 }}>
               <Link
                 to={item.path}
                 onClick={() => setIsMobileMenuOpen(false)}
                 className={`${
                   isActive(item.path)
                     ? 'bg-gray-900 text-white'
-                    : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                } block px-3 py-2 rounded-md text-base font-medium transition-colors duration-200`}
+                    : 'text-gray-400 hover:bg-gray-800 hover:text-white'
+                } block px-3 py-2 rounded-md text-base font-medium transition-all duration-200`}
               >
                 {item.label}
               </Link>
@@ -128,7 +137,7 @@ export default function Navigation() {
                 handleLogout();
                 setIsMobileMenuOpen(false);
               }}
-              className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:bg-gray-700 hover:text-white transition-colors duration-200"
+              className="w-full text-left block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:bg-gray-800 hover:text-white transition-all duration-200"
             >
               Logout
             </motion.button>
