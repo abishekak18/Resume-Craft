@@ -51,7 +51,7 @@ export default function Navigation() {
             </motion.div>
 
             {/* Desktop Menu */}
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-8 items-center">
               {navItems.map((item) => (
                 <motion.div
                   key={item.path}
